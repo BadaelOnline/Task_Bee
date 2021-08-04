@@ -1,0 +1,382 @@
+[
+	 {
+		"id": 1,
+		"name": "Australian Dollar",
+		"code": "AUD",
+		"icon": "lib/assets/image/australia.png",
+		"convertationrate": "3000"
+	},
+  
+	 {
+		"id": 2,
+		"name": "Brazilian Real",
+		"code": "BRL",
+		"icon": "lib/assets/image/brazil.png",
+		"convertationrate": "3000"
+	},
+
+	{
+		"id": 3,
+		"name": "British Pound",
+		"code": "GBP",
+		"icon": "lib/assets/image/united.png",
+		"convertationrate": "3000"
+	},
+    {
+	    "id": 4,
+		"name": "Canadian Dollar",
+		"code": "CAD",
+		"icon": "lib/assets/image/canada.png",
+		"convertationrate": "3000"
+   },
+   {
+	    "id": 5,
+	    "name": "Chilean Peso",
+	    "code": "CLP",
+	    "icon": "lib/assets/image/Group 4.png",
+	    "convertationrate": "3000"
+   },
+   {
+	    "id": 6,
+	    "name": "Chinese Yuan",
+	    "code": "CNY",
+	    "icon": "lib/assets/image/china.png",
+	    "convertationrate": "3000"
+   }, 
+   {
+	    "id": 7,
+	    "name": "Czech Koruna",
+	    "code": "CZK",
+	    "icon": "lib/assets/image/czech-republic.png",
+	    "convertationrate": "3000"
+   },
+   {
+	    "id": 8,
+	    "name": "Danish Krone",
+	    "code": "DKK",
+	    "icon": "lib/assets/image/denmark.png",
+	    "convertationrate": "3000"
+   },
+    {
+	    "id": 9,
+	    "name": "Euro",
+	    "code": "EUR",
+	    "icon": "lib/assets/image/european-union.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 10,
+	    "name": "Hong Kong Dollar",
+	    "code": "HKD",
+	    "icon": "lib/assets/image/hong-kong.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 11,
+	    "name": "Hungarian Forint",
+	    "code": "HUF",
+	    "icon": "lib/assets/image/hungary.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 12,
+	    "name": "Indian Rupee",
+	    "code": "INR",
+	    "icon": "lib/assets/image/india.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 13,
+	    "name": "Indonesian Rupiah",
+	    "code": "IDR",
+	    "icon": "lib/assets/image/indonesia.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 14,
+	    "name": "Japanese Yen",
+	    "code": "JPY",
+	    "icon": "lib/assets/image/japan.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 15,
+	    "name": "Korean Won",
+	    "code": "KRW",
+	    "icon": "lib/assets/image/south-korea.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 16,
+	    "name": "Malaysian Ringgit",
+	    "code": "MYR",
+	    "icon": "lib/assets/image/malaysia.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 17,
+	    "name": "Mexican Peso",
+	    "code": "MXN",
+	    "icon": "lib/assets/image/maxico.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 18,
+	    "name": "New Zealand Dollar",
+	    "code": "NZD",
+	    "icon": "lib/assets/image/new-zealand.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 19,
+	    "name": "Norwegian Krone",
+	    "code": "NOK",
+	    "icon": "lib/assets/image/norway.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 20,
+	    "name": "Pakistan Rupee",
+	    "code": "PKR",
+	    "icon": "lib/assets/image/pakistan.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 21,
+	    "name": "Philippine Peso",
+	    "code": "PHP",
+	    "icon": "lib/assets/image/phil.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 22,
+	    "name": "Polish Zloty",
+	    "code": "PLN",
+	    "icon": "lib/assets/image/poland.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 23,
+	    "name": "Russian Ruble",
+	    "code": "RUB",
+	    "icon": "lib/assets/image/russia.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 24,
+	    "name": "Singapore Dollar",
+	    "code": "SGD",
+	    "icon": "lib/assets/image/singapore.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 25,
+	    "name": "South African Rand",
+	    "code": "ZAR",
+	    "icon": "lib/assets/image/south-africa.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 26,
+	    "name": "Swedish Krona",
+	    "code": "SEK",
+	    "icon": "lib/assets/image/sweden.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 27,
+	    "name": "Swiss Franc",
+	    "code": "CHF",
+	    "icon": "lib/assets/image/swiz.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 28,
+	    "name": "Taiwan Dollar",
+	    "code": "TWD",
+	    "icon": "lib/assets/image/taiwan.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 29,
+	    "name": "Turkish Lira",
+	    "code": "TRY",
+	    "icon": "lib/assets/image/turkey.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 30,
+	    "name": "US Dollar",
+	    "code": "USD",
+	    "icon": "lib/assets/image/united.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 31,
+	    "name": "Egyptian Pound",
+	    "code": "EGP",
+	    "icon": "lib/assets/image/egypt.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 32,
+	    "name": "Sudanese pound",
+	    "code": "SDG",
+	    "icon": "lib/assets/image/sudan.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 33,
+	    "name": "Libyan dinar",
+	    "code": "LYD",
+	    "icon": "lib/assets/image/libya.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 34,
+	    "name": "Moroccan dirham",
+	    "code": "MAD",
+	    "icon": "lib/assets/image/morocco.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 35,
+	    "name": "Tunisian dinar",
+	    "code": "TND",
+	    "icon": "lib/assets/image/tunisia.png",
+	    "convertationrate": "3000"
+	},
+	{
+	    "id": 36,
+	    "name": "Algerian dinar",
+	    "code": "DZD",
+	    "icon": "lib/assets/image/jaz.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 37,
+	    "name": "Mauritanian ouguiya",
+	    "code": "MRU",
+	    "icon": "lib/assets/image/jaz.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 38,
+	    "name": "Somali shilling",
+	    "code": "SOS",
+	    "icon": "lib/assets/image/somalia.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 39,
+	    "name": "Comorian franc",
+	    "code": "KMF",
+	    "icon": "lib/assets/image/comoros.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 40,
+	    "name": "Djiboutian franc",
+	    "code": "DJF",
+	    "icon": "lib/assets/image/djibouti.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 41,
+	    "name": "Lebanese Pounds",
+	    "code": "LBP",
+	    "icon": "lib/assets/image/lebanon.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 42,
+	    "name": "Syrian POUNDS",
+	    "code": "SYP",
+	    "icon": "lib/assets/image/syria.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 43,
+	    "name": "State of Palestine",
+	    "code": "Null",
+	    "icon": "lib/assets/image/palestine.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 44,
+	    "name": "Jordanian Dinar",
+	    "code": "JOD",
+	    "icon": "lib/assets/image/jordan.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 45,
+	    "name": "Saudi riyal",
+	    "code": "SAR",
+	    "icon": "lib/assets/image/saudi-arabia.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 46,
+	    "name": "Kuwaiti Dinar",
+	    "code": "KWD",
+	    "icon": "lib/assets/image/kuwait.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 47,
+	    "name": "Iraqi Dinar",
+	    "code": "IQD",
+	    "icon": "lib/assets/image/iraq.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 48,
+	    "name": "Bahraini Dinar",
+	    "code": "BHD",
+	    "icon": "lib/assets/image/bahrain.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 49,
+	    "name": "United Arab Emirate",
+	    "code": "UAE",
+	    "icon": "lib/assets/image/united-arab-emirates.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 49,
+	    "name": "United Arab Emirate",
+	    "code": "UAE",
+	    "icon": "lib/assets/image/united-arab-emirates.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 50,
+	    "name": "Omani Rial",
+	    "code": "OMR",
+	    "icon": "lib/assets/image/oman.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 51,
+	    "name": "Qatari riyal",
+	    "code": "QAR",
+	    "icon": "lib/assets/image/qatar.png",
+	    "convertationrate": "3000"
+    },
+	{
+	    "id": 52,
+	    "name": "Yemeni riyal",
+	    "code": "YER",
+	    "icon": "lib/assets/image/qatar.png",
+	    "convertationrate": "3000"
+    }
+
+
+
+
+	
+	
+	
+]
