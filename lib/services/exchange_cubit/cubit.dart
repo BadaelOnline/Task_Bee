@@ -41,11 +41,10 @@ class ExchangeCubit extends Cubit<ExchangeStates> {
     });
   }
 
-  Future<void> insertToDatabase({
-    @required int isId,
-    @required String exchangeName,
-    @required String catImage
-  }) {
+  Future<void> insertToDatabase(
+      {@required int isId,
+      @required String exchangeName,
+      @required String catImage}) {
     dao
         .insertExchangeCategory(
             ExchangeCategory(isId, exchangeName, 1, catImage, 0, 1))
@@ -58,10 +57,11 @@ class ExchangeCubit extends Cubit<ExchangeStates> {
   Future<void> updateExchangeDatabase({
     @required int isId,
     @required String exchangeName,
+    @required String icon,
   }) {
     dao
         .updateExchangeCategory(
-            ExchangeCategory(isId, exchangeName, 1, '', 0, 1))
+            ExchangeCategory(isId, exchangeName, 1, icon, 0, 1))
         .then((value) {
       emit(UpdateExchangesToDatabaseState());
       getExchangesFromDatabase();
