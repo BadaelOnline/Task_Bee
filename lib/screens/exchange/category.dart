@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:test_database_floor/screens/exchange/add_exchange.dart';
 import 'package:test_database_floor/services/exchange_cubit/cubit.dart';
 import 'package:test_database_floor/services/exchange_cubit/states.dart';
-import 'package:test_database_floor/screens/exchange/category.dart';
 import 'package:test_database_floor/screens/exchange/exchange_home.dart';
-import 'package:test_database_floor/services/exchange_cubit/cubit.dart';
-import 'package:test_database_floor/services/exchange_cubit/states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Category extends StatelessWidget {
@@ -47,7 +44,7 @@ class Category extends StatelessWidget {
                       mainAxisSpacing: 7.0,
                       maxCrossAxisExtent: 75.0,
                       crossAxisSpacing: 7.0,
-                      children: _buildGridImages(65,context),
+                      children: _buildGridImages(65, context),
                     ),
                   ),
                 );
@@ -56,7 +53,7 @@ class Category extends StatelessWidget {
   }
 }
 
-List<Widget> _buildGridImages(numberOfImage,context) {
+List<Widget> _buildGridImages(numberOfImage, context) {
   List<Container> containers =
       List<Container>.generate(numberOfImage, (int index) {
     final imageName = index < 9
@@ -64,11 +61,15 @@ List<Widget> _buildGridImages(numberOfImage,context) {
         : 'assets/category/image${index + 1}.png';
     return Container(
       child: InkWell(
-          child: Image.asset(imageName),
-        onTap: (){
-            print('image name is $imageName');
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => AddExchange(catImage: imageName,)));
+        child: Image.asset(imageName),
+        onTap: () {
+          print('image name is $imageName');
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AddExchange(
+                        catImage: imageName,
+                      )));
         },
       ),
     );

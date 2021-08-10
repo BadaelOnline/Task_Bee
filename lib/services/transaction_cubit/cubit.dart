@@ -7,47 +7,46 @@ import 'package:test_database_floor/models/transaction.dart';
 import 'package:test_database_floor/services/dao/dao_transaction.dart';
 import 'package:test_database_floor/services/transaction_cubit/states.dart';
 
-
-class TransactionCubit extends Cubit<TransactionStates>{
+class TransactionCubit extends Cubit<TransactionStates> {
   TransactionCubit() : super(TransactionIntialState());
 
   static TransactionCubit get(context) => BlocProvider.of(context);
 
-  AppDatabase database ;
-  TransactionDao dao  ;
+  AppDatabase database;
+  TransactionDao dao;
   List<Transaction> transactions = [];
-  Mix mix ;
+  Mix mix;
   List<Mix> mixes;
   List<Mix> transactionByContact;
-  int lastId ;
+  int lastId;
 
-  void createDatabase(){
-    $FloorAppDatabase.databaseBuilder('database_wallet.db').build().then((value) {
+  void createDatabase() {
+    $FloorAppDatabase
+        .databaseBuilder('database_wallet.db')
+        .build()
+        .then((value) {
       print('oooooooooooooooooo ${value.transactionDao}');
       database = value;
       dao = database.transactionDao;
       emit(TransactionCreateDatabaseState());
 
       getTransactionsFromDatabase();
-
     });
   }
 
-  void getTransactionsFromDatabase(){
+  void getTransactionsFromDatabase() {
     this.dao.findAllTransaction().then((value) {
       // getmixesFromDatabase();
       // print('111111111111111111 $value');
       transactions = value;
-      if(value.length > 0){
-        lastId = value[value.length -1].id;
-      }else{
+      if (value.length > 0) {
+        lastId = value[value.length - 1].id;
+      } else {
         lastId = 0;
       }
 
       emit(GetTransactionsFromDatabaseState());
-
-
-    }).catchError((onError){
+    }).catchError((onError) {
       print('2222222222222 $onError');
     });
   }
@@ -61,11 +60,15 @@ class TransactionCubit extends Cubit<TransactionStates>{
   // }
 
   void getTransactionByContactFromDatabase({
-  @required int contactId,
+    @required int contactId,
     @required int walletId,
-    @required int categoryId
-}){
-    this.dao.transactionByContact(contactId,walletId,categoryId).then((value) {
+    @required int categoryId,
+    int currencyID,
+  }) {
+    this
+        .dao
+        .transactionByContact(contactId, walletId, categoryId)
+        .then((value) {
       transactionByContact = value;
       emit(GetTransactionsFromDatabaseState());
     });
@@ -82,24 +85,23 @@ class TransactionCubit extends Cubit<TransactionStates>{
   //   });
   // }
 
-
-
-  Future<void> insertToDatabase({
-    @required int isId,
-    @required String total,
-    @required String paid,
-    @required String rest,
-    @required String transactionDate,
-    @required String description,
-    @required int exchangeId,
-    @required int walletId,
-    @required int contactId,
-    @required int isIncome
-  }){
-    dao.insertTransaction(Transaction(isId, total, paid, rest, transactionDate, description, 1, 1, isIncome, exchangeId, walletId, contactId)).then((value) {
+  Future<void> insertToDatabase(
+      {@required int isId,
+      @required String total,
+      @required String paid,
+      @required String rest,
+      @required String transactionDate,
+      @required String description,
+      @required int exchangeId,
+      @required int walletId,
+      @required int contactId,
+      @required int isIncome}) {
+    dao
+        .insertTransaction(Transaction(isId, total, paid, rest, transactionDate,
+            description, 1, 1, isIncome, exchangeId, walletId, contactId))
+        .then((value) {
       emit(InsertTransactionsToDatabaseState());
       getTransactionsFromDatabase();
-
     });
   }
 
@@ -113,24 +115,22 @@ class TransactionCubit extends Cubit<TransactionStates>{
     @required int exchangeId,
     @required int walletId,
     @required int contactId,
-  }){
-    dao.updateTransaction(Transaction(isId, total, paid, rest, transactionDate, description, 1, 1, 1, exchangeId, walletId, contactId)).then((value) {
+  }) {
+    dao
+        .updateTransaction(Transaction(isId, total, paid, rest, transactionDate,
+            description, 1, 1, 1, exchangeId, walletId, contactId))
+        .then((value) {
       emit(UpdateTransactionsToDatabaseState());
       getTransactionsFromDatabase();
-
     });
   }
 
   void deleteTransactionFromDatabase({
     @required int id,
-  }){
-    dao.deleteTransaction(id).then((value)  {
+  }) {
+    dao.deleteTransaction(id).then((value) {
       emit(DeleteTransactionsFromDatabaseState());
       getTransactionsFromDatabase();
     });
   }
-
-
-
-
 }

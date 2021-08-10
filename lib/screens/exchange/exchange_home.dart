@@ -5,7 +5,6 @@ import 'package:test_database_floor/screens/exchange/add_exchange.dart';
 import 'package:test_database_floor/screens/exchange/update_exchange.dart';
 import 'package:test_database_floor/services/exchange_cubit/cubit.dart';
 import 'package:test_database_floor/services/exchange_cubit/states.dart';
-import 'package:test_database_floor/widget/custom_appBar.dart';
 import 'package:test_database_floor/widget/custom_widgets.dart';
 
 class ExchangeHome extends StatelessWidget {
@@ -49,12 +48,40 @@ class ExchangeHome extends StatelessWidget {
                                 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
-                                      padding: EdgeInsets.only(left: 8.0),
-                                      child:cubit.exchanges[index].icon == '' ? CircleAvatar():
-                                           CircleAvatar(
-                                           child: Image.asset(cubit.exchanges[index].icon),
-                                           )
-                      ),
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: cubit.exchanges[index].icon == ''
+                                        ? Container(
+                                            height: 50,
+                                            width: 50,
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey[100],
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(100.0)),
+                                              border: Border.all(
+                                                color: Colors.amber[400],
+                                                width: 2,
+                                              ),
+                                            ),
+                                          )
+                                        : Container(
+                                            height: 50,
+                                            width: 50,
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey[100],
+                                              image: DecorationImage(
+                                                scale: 0.5,
+                                                image: AssetImage(cubit
+                                                    .exchanges[index].icon),
+                                              ),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(100.0)),
+                                              border: Border.all(
+                                                color: Colors.amber[400],
+                                                width: 2,
+                                              ),
+                                            ),
+                                          ),
+                                  ),
                                   Container(
                                       padding: EdgeInsets.only(left: 8.0),
                                       child: Text(
@@ -86,6 +113,8 @@ class ExchangeHome extends StatelessWidget {
                                                       cubit.exchanges[index].id,
                                                   exchangeName: cubit
                                                       .exchanges[index].name,
+                                                  catImage: cubit
+                                                      .exchanges[index].icon,
                                                 ))),
                                     icon: Icon(
                                       Icons.edit,
@@ -108,68 +137,19 @@ class ExchangeHome extends StatelessWidget {
                           ),
                         ]),
                       );
-                      // Card(
-                      //     child: ListTile(
-                      //   contentPadding: EdgeInsets.all(8.0),
-                      //   title: Text(cubit.exchanges[index].name),
-                      //   leading: IconButton(
-                      //     icon: Icon(Icons.delete),
-                      //     onPressed: () {
-                      //       cubit.deleteExchangeFromDatabase(
-                      //           id: cubit.exchanges[index].id);
-                      //     },
-                      //   ),
-                      //   onTap: () => Navigator.pushReplacement(
-                      //       context,
-                      //       MaterialPageRoute(
-                      //           builder: (context) => UpdateExchange(
-                      //                 exchangeId: cubit.exchanges[index].id,
-                      //                 exchangeName: cubit.exchanges[index].name,
-                      //               ))),
-                      // ));
                     },
                   );
                 },
               ),
-              // Text(basselCubit.bassels[index].name)
-              // FutureBuilder(
-              //   future: cubit.dao.retrieveUsers(),
-              //   builder: (BuildContext context, AsyncSnapshot<List<Wallet>> snapshot) {
-              //     if (snapshot.hasData) {
-              //       return ListView.builder(
-              //         itemCount: snapshot.data?.length,
-              //         itemBuilder: (BuildContext context, int index) {
-              //           return Card(
-              //               child: ListTile(
-              //                 contentPadding: EdgeInsets.all(8.0),
-              //                 title: Text(snapshot.data[index].name),
-              //                 leading: IconButton(
-              //                   icon: Icon(Icons.delete),
-              //                   onPressed: () {
-              //
-              //                       cubit.dao.deleteUser(snapshot.data[index].id);
-              //
-              //                   },
-              //                 ),
-              //               ));
-              //         },
-              //       );
-              //     } else {
-              //       return Center(child: CircularProgressIndicator());
-              //     }
-              //   },
-              // ),
               floatingActionButton: customFloatinActionButton(
                 icon: Icon(Icons.add),
-                onPressed: () => Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => AddExchange(catImage: '',))),
-              )
-              // FloatingActionButton(
-              //   child: Icon(Icons.add),
-              //   onPressed: () => Navigator.pushReplacement(context,
-              //       MaterialPageRoute(builder: (context) => AddExchange())),
-              // ),
-              );
+                onPressed: () => Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AddExchange(
+                              catImage: '',
+                            ))),
+              ));
         },
       ),
     );
