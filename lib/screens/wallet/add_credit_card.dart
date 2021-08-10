@@ -22,7 +22,7 @@ class AddCreditCard extends StatelessWidget {
   int dropdownValue = 1;
 
   int isID;
-  String image = 'assets/wallet/Group1.png';
+  String image = 'assets/wallet/card.png';
 
   @override
   Widget build(BuildContext context) {
