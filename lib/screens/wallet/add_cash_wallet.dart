@@ -20,6 +20,16 @@ class AddCashWallet extends StatelessWidget {
   int isID;
   String image = 'assets/wallet/dollar.png';
 
+  AddCashWallet(
+      {this.walletId,
+      this.walletName,
+      this.walletCurrencyId,
+      this.walletbalance});
+  final walletId;
+  final String walletName;
+  final walletCurrencyId;
+  final walletbalance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

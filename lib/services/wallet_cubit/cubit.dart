@@ -68,10 +68,11 @@ class WalletCubit extends Cubit<WalletStates> {
       {@required int isId,
       @required String walletName,
       @required String walletBalance,
-      @required int currencyId}) {
+      @required int currencyId,
+      String icon}) {
     dao
         .updateWallet(
-            Wallet(isId, walletName, walletBalance, 1, '', 1, currencyId))
+            Wallet(isId, walletName, walletBalance, 1, icon, 1, currencyId))
         .then((value) {
       emit(UpdateWalletsToDatabaseState());
       getWalletsFromDatabase();
