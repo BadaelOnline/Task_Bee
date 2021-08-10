@@ -1,30 +1,39 @@
-import 'package:floor/floor.dart';
 import 'package:flutter/material.dart';
-import 'package:test_database_floor/database/database.dart';
+
 import 'package:test_database_floor/models/currency.dart';
-import 'package:test_database_floor/models/wallet.dart';
+
 import 'package:test_database_floor/screens/myhomepage.dart';
 import 'package:test_database_floor/screens/wallet/wallet_home.dart';
 import 'package:test_database_floor/services/currency_cubit/cubit.dart';
 import 'package:test_database_floor/services/currency_cubit/states.dart';
-import 'package:test_database_floor/services/dao/dao_wallet.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_database_floor/widget/custom_appBar.dart';
-import 'package:test_database_floor/widget/custom_textFormField.dart';
+
+import 'package:test_database_floor/widget/custom_widgets.dart';
 
 import '../../services/wallet_cubit/states.dart';
 import '../../services/wallet_cubit/cubit.dart';
 
 class Updatewallet extends StatelessWidget {
   final walletId;
-  final walletName;
+  final String walletName;
   final walletCurrencyId;
+  final walletbalance;
+
+  String image = 'assets/wallet/dollar.png';
 
   TextEditingController nameController = TextEditingController();
   TextEditingController balanceController = TextEditingController();
   TextEditingController currencyController = TextEditingController();
 
-  Updatewallet({Key key, this.walletId, this.walletName, this.walletCurrencyId})
+  Updatewallet(
+      {Key key,
+      this.walletId,
+      this.walletName,
+      this.walletCurrencyId,
+      this.walletbalance,
+      this.image})
       : super(key: key);
 
   @override
@@ -40,119 +49,158 @@ class Updatewallet extends StatelessWidget {
             create: (BuildContext context) => CurrencyCubit()..createDatabase(),
           ),
         ],
-        child: BlocConsumer<WalletCubit, WalletStates>(
-          listener: (context, state) {
-            if (state is UpdateWalletsToDatabaseState) {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => WalletHome()));
-            }
-          },
-          builder: (context, state) {
-            return ListView(children: [
-              SizedBox(
-                height: 50,
+        child:
+            BlocConsumer<WalletCubit, WalletStates>(listener: (context, state) {
+          if (state is UpdateWalletsToDatabaseState) {
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => WalletHome()));
+          }
+        }, builder: (context, state) {
+          return SingleChildScrollView(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            padding: EdgeInsets.all(15),
+            child:
+                // ConstrainedBox(
+                //   constraints: BoxConstraints(
+                //       minHeight: MediaQuery.of(context).size.height,
+                //       maxHeight: MediaQuery.of(context).size.height),
+                Column(children: [
+              Container(
+                height: 100,
+                width: 100,
+                decoration: BoxDecoration(
+                  color: Colors.grey[100],
+                  image: DecorationImage(
+                    scale: 9,
+                    image: AssetImage(image),
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(100.0)),
+                  border: Border.all(
+                    color: Colors.amber[400],
+                    width: 2,
+                  ),
+                ),
               ),
-
-              CustomTextFormField(
-                  'Name Wallet',
-                  nameController = TextEditingController(text: '$walletName'),
-                  Icon(Icons.drive_file_rename_outline),
-                  () {},
-                  () {},
-                  TextInputType.text),
-              // TextFormField(
-              //   controller: nameController,
-              //   decoration: const InputDecoration(
-              //     icon: Icon(Icons.person),
-              //     hintText: 'What do people call you?',
-              //     labelText: 'Name Wallet',
-              //   ),
-              // ),
               SizedBox(
-                height: 50,
+                height: 20,
               ),
-
-              CustomTextFormField(
-                  'balance',
-                  balanceController,
-                  Icon(Icons.account_balance),
-                  () {},
-                  () {},
-                  TextInputType.number),
-              // SizedBox(
-              //   height: 50,
-              // ),
-              // TextFormField(
-              //   controller: currencyController,
-              //   keyboardType: TextInputType.number,
-              //   decoration: const InputDecoration(
-              //     icon: Icon(Icons.person),
-              //     hintText: 'What do people call you?',
-              //     labelText: 'currency',
-              //   ),
-              // ),
+              Text(
+                'Cash',
+                style: TextStyle(
+                    color: Colors.grey[500],
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18),
+              ),
               SizedBox(
-                height: 50,
+                height: 20,
               ),
-
-              BlocConsumer<CurrencyCubit, CurrencyStates>(
-                listener: (context, CurrencyStates state) {},
-                builder: (context, CurrencyStates state) {
-                  var x = CurrencyCubit.get(context);
-                  print('rrrrrrrrrrrrrrrrrrrrrrrrrr $x');
-                  // ignore: unrelated_type_equality_checks
-                  return TextField(
-                    // onSubmitted: (value) => _childInfo(context),
-                    textAlign: TextAlign.right,
-                    readOnly: true,
-                    controller: currencyController,
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      color: Colors.amberAccent,
-                    ),
-                    cursorColor: Colors.amberAccent,
-                    decoration: InputDecoration(
-                      labelStyle: new TextStyle(
-                        color: Colors.amberAccent,
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Colors.amberAccent, width: 1.0),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.amberAccent),
-                      ),
-                      prefixIcon: new DropdownButton<String>(
-                        underline: Container(
-                          decoration: const BoxDecoration(
-                              border: Border(
-                                  bottom:
-                                      BorderSide(color: Colors.transparent))),
+              customFormField(
+                  label: 'Wallet Name',
+                  controller: nameController = TextEditingController(
+                    text: '$walletName',
+                  ),
+                  type: TextInputType.text,
+                  isClickable: true,
+                  onChange: (String value) {},
+                  onSubmit: (String value) {},
+                  onTap: () {}),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: customFormField(
+                        label: 'balance ',
+                        controller: balanceController =
+                            TextEditingController(text: '$walletbalance'),
+                        // prefix: Icons.account_balance,
+                        type: TextInputType.number),
+                  ),
+                  BlocConsumer<CurrencyCubit, CurrencyStates>(
+                    listener: (context, CurrencyStates state) {},
+                    builder: (context, CurrencyStates state) {
+                      var x = CurrencyCubit.get(context);
+                      print('rrrrrrrrrrrrrrrrrrrrrrrrrr $x');
+                      // ignore: unrelated_type_equality_checks
+                      return Expanded(
+                        flex: 1,
+                        child: TextField(
+                          // onSubmitted: (value) => _childInfo(context),
+                          textAlign: TextAlign.right,
+                          readOnly: true,
+                          controller: currencyController =
+                              TextEditingController(text: '$walletCurrencyId'),
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            color: Colors.amberAccent,
+                          ),
+                          cursorColor: Colors.amberAccent,
+                          decoration: InputDecoration(
+                            labelStyle: new TextStyle(
+                              color: Colors.amberAccent,
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Colors.amberAccent, width: 1.0),
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.amberAccent),
+                            ),
+                            prefixIcon: new DropdownButton<String>(
+                              underline: Container(
+                                decoration: const BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            color: Colors.transparent))),
+                              ),
+                              icon: new Icon(Icons.keyboard_arrow_down),
+                              items: x.currencies.map((Currency value) {
+                                return new DropdownMenuItem<String>(
+                                  value: value.name,
+                                  child: Text(value.name),
+                                );
+                              }).toList(),
+                              onChanged: (String value) {
+                                currencyController.text = value;
+                              },
+                            ),
+                            hintText: 'Currency',
+                            hintStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold),
+                            hoverColor: Colors.amberAccent,
+                            focusColor: Colors.amberAccent,
+                          ),
+                          //                        onSubmitted: (value) =>  Navigator.push(
+                          //                            context,
+                          //                            MaterialPageRoute(builder: (context) => ChildInfo(children[0]))) ,
                         ),
-                        icon: new Icon(Icons.keyboard_arrow_down),
-                        items: x.currencies.map((Currency value) {
-                          return new DropdownMenuItem<String>(
-                            value: value.name,
-                            child: Text(value.name),
-                          );
-                        }).toList(),
-                        onChanged: (String value) {
-                          currencyController.text = value;
-                        },
+                      );
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Checkbox(
+                        value: false,
+                        onChanged: (val) {},
+                        checkColor: Colors.amber,
                       ),
-                      hintText: 'Wallet',
-                      hintStyle: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold),
-                      hoverColor: Colors.amberAccent,
-                      focusColor: Colors.amberAccent,
-                    ),
-//                        onSubmitted: (value) =>  Navigator.push(
-//                            context,
-//                            MaterialPageRoute(builder: (context) => ChildInfo(children[0]))) ,
-                  );
-                },
+                      Text('Hide Wallet'),
+                    ],
+                  ),
+                  Text(
+                      'The wallet and its balance will be hidden \n You can create any transactions even unhide'),
+                ],
               ),
               SizedBox(
                 height: 50,
@@ -165,11 +213,12 @@ class Updatewallet extends StatelessWidget {
                   }
                 },
                 builder: (context, state) {
-                  return TextButton(
-                      child: Text('save'),
+                  return customRaisedButton(
+                      text: 'Edit',
                       onPressed: () {
                         WalletCubit.get(context).updateWalletDatabase(
                             isId: walletId,
+                            icon: image,
                             walletName: nameController.text,
                             walletBalance: balanceController.text,
                             currencyId: CurrencyCubit.get(context)
@@ -178,9 +227,9 @@ class Updatewallet extends StatelessWidget {
                       });
                 },
               )
-            ]);
-          },
-        ),
+            ]),
+          );
+        }),
       ),
     );
   }
