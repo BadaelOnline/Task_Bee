@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:test_database_floor/screens/wallet/add_cash_wallet.dart';
-import 'package:test_database_floor/screens/wallet/updateWallet.dart';
+import 'package:test_database_floor/screens/wallet/update_cash_Wallet.dart';
+import 'package:test_database_floor/screens/wallet/update_bank_account.dart';
+import 'package:test_database_floor/screens/wallet/update_credit_card.dart';
+import 'package:test_database_floor/screens/wallet/update_planer_save.dart';
+import 'package:test_database_floor/screens/wallet/update_priberd_card.dart';
 import 'package:test_database_floor/screens/wallet/wallets_list.dart';
 import 'package:test_database_floor/services/currency_cubit/cubit.dart';
 import 'package:test_database_floor/services/wallet_cubit/cubit.dart';
@@ -66,15 +70,69 @@ class WalletHome extends StatelessWidget {
                                       walletId: cubit.wallets[index].id,
                                       walletName: cubit.wallets[index].name,
                                       walletCurrencyId:
-                                          currencyCubit.currencies[index].name,
+                                          currencyCubit.getCurrencyOfWallet(
+                                              currencyId: cubit
+                                                  .wallets[index].currencyId),
                                       walletbalance:
                                           cubit.wallets[index].balance,
                                       image: cubit.wallets[index].icon,
                                     )));
                           } else if (cubit.wallets[index].icon ==
+                              'assets/wallet/account.png') {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (_) => UpdateBankAccount(
+                                      walletId: cubit.wallets[index].id,
+                                      walletName: cubit.wallets[index].name,
+                                      walletbalance:
+                                          cubit.wallets[index].balance,
+                                      walletCurrencyId:
+                                          currencyCubit.getCurrencyOfWallet(
+                                              currencyId: cubit
+                                                  .wallets[index].currencyId),
+                                      image: cubit.wallets[index].icon,
+                                    )));
+                          } else if (cubit.wallets[index].icon ==
                               'assets/wallet/card.png') {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (_) => WalletsList()));
+                                builder: (_) => UpdateCreditCard(
+                                      walletId: cubit.wallets[index].id,
+                                      walletName: cubit.wallets[index].name,
+                                      walletbalance:
+                                          cubit.wallets[index].balance,
+                                      walletCurrencyId:
+                                          currencyCubit.getCurrencyOfWallet(
+                                              currencyId: cubit
+                                                  .wallets[index].currencyId),
+                                      image: cubit.wallets[index].icon,
+                                    )));
+                          } else if (cubit.wallets[index].icon ==
+                              'assets/wallet/credit-cards.png') {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (_) => UpdatePrepaidCard(
+                                      walletId: cubit.wallets[index].id,
+                                      walletName: cubit.wallets[index].name,
+                                      walletbalance:
+                                          cubit.wallets[index].balance,
+                                      walletCurrencyId:
+                                          currencyCubit.getCurrencyOfWallet(
+                                              currencyId: cubit
+                                                  .wallets[index].currencyId),
+                                      image: cubit.wallets[index].icon,
+                                    )));
+                          } else if (cubit.wallets[index].icon ==
+                              'assets/wallet/revenue.png') {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (_) => UpdatePlannerSave(
+                                      walletId: cubit.wallets[index].id,
+                                      walletName: cubit.wallets[index].name,
+                                      walletbalance:
+                                          cubit.wallets[index].balance,
+                                      walletCurrencyId:
+                                          currencyCubit.getCurrencyOfWallet(
+                                              currencyId: cubit
+                                                  .wallets[index].currencyId),
+                                      image: cubit.wallets[index].icon,
+                                    )));
                           }
                         },
                         child: customContainerWallet(
@@ -85,8 +143,9 @@ class WalletHome extends StatelessWidget {
                             decoration: BoxDecoration(
                               color: Colors.grey[100],
                               image: DecorationImage(
-                                fit: BoxFit.cover,
-                                scale: 0.5,
+                                // fit: BoxFit.cover,
+                                alignment: Alignment.center,
+                                scale: 40,
                                 image: AssetImage(cubit.wallets[index].icon),
                               ),
                               borderRadius:
@@ -113,6 +172,8 @@ class WalletHome extends StatelessWidget {
                           },
                           TransactionMethod: () {},
                           balance: cubit.wallets[index].balance,
+                          currency: currencyCubit.getCurrencyOfWallet(
+                              currencyId: cubit.wallets[index].currencyId),
                         ),
                       );
                     },

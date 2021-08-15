@@ -373,6 +373,7 @@ Widget customContainerWallet({
   Function deletMethod,
   Function TransactionMethod,
   String balance,
+  String currency,
 }) {
   return Container(
     padding: EdgeInsets.all(8),
@@ -413,7 +414,7 @@ Widget customContainerWallet({
               ),
               Container(
                 child: Text(
-                  's.p',
+                  '$currency',
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.normal,
