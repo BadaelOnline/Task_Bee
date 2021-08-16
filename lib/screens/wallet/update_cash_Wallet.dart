@@ -57,32 +57,29 @@ class Updatewallet extends StatelessWidget {
           }
         }, builder: (context, state) {
           return SingleChildScrollView(
-            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             padding: EdgeInsets.all(15),
-            child:
-                // ConstrainedBox(
-                //   constraints: BoxConstraints(
-                //       minHeight: MediaQuery.of(context).size.height,
-                //       maxHeight: MediaQuery.of(context).size.height),
-                Column(children: [
+            child: Column(children: [
+              SizedBox(
+                height: 30,
+              ),
               Container(
-                height: 100,
-                width: 100,
+                height: 150,
+                width: 150,
                 decoration: BoxDecoration(
                   color: Colors.grey[100],
                   image: DecorationImage(
-                    scale: 9,
+                    scale: 7,
                     image: AssetImage(image),
                   ),
-                  borderRadius: BorderRadius.all(Radius.circular(100.0)),
-                  border: Border.all(
-                    color: Colors.amber[400],
-                    width: 2,
-                  ),
+                  // borderRadius: BorderRadius.all(Radius.circular(100.0)),
+                  // border: Border.all(
+                  //   color: Colors.amber[400],
+                  //   width: 2,
+                  // ),
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 30,
               ),
               Text(
                 'Cash',
@@ -92,7 +89,7 @@ class Updatewallet extends StatelessWidget {
                     fontSize: 18),
               ),
               SizedBox(
-                height: 20,
+                height: 30,
               ),
               customFormField(
                   label: 'Wallet Name',
@@ -105,7 +102,7 @@ class Updatewallet extends StatelessWidget {
                   onSubmit: (String value) {},
                   onTap: () {}),
               SizedBox(
-                height: 20,
+                height: 30,
               ),
               Row(
                 children: [
@@ -184,7 +181,7 @@ class Updatewallet extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: 20,
+                height: 50,
               ),
               Column(
                 children: [

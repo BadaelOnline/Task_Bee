@@ -1,12 +1,15 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:test_database_floor/screens/transaction/add_transaction.dart';
+import 'package:test_database_floor/screens/transaction/update_transaction.dart';
 import 'package:test_database_floor/services/contact_cubit/cubit.dart';
 import 'package:test_database_floor/services/currency_cubit/cubit.dart';
 import 'package:test_database_floor/services/exchange_cubit/cubit.dart';
 import 'package:test_database_floor/services/transaction_cubit/cubit.dart';
 import 'package:test_database_floor/services/transaction_cubit/states.dart';
 import 'package:test_database_floor/services/wallet_cubit/cubit.dart';
+import 'package:test_database_floor/services/wallet_cubit/states.dart';
+import 'package:test_database_floor/screens/wallet/update_cash_Wallet.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:conditional_builder/conditional_builder.dart';
 import 'package:test_database_floor/widget/TransAction_Card_1.dart';
@@ -54,69 +57,58 @@ class TransactionHome extends StatelessWidget {
                   return ListView.builder(
                     itemCount: transactionCubit.transactions.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return cardTransaction(
-                          currency: '${currencyCubit.currencies[index].name}',
-                          imageWallet:
-                              Image.asset('${walletCubit.wallets[index].icon}'),
-                          iconExchang: Image.asset(
-                            '${exchangeCubit.exchanges[index].icon}',
+                      return Card(
+                          child: Column(
+                        children: [
+                          ListTile(
+                            contentPadding: EdgeInsets.all(8.0),
+                            title: Text(
+                                transactionCubit.transactions[index].total),
+
+                            leading: IconButton(
+                              icon: Icon(Icons.delete),
+                              onPressed: () {
+                                // walletCubit.deleteWalletFromDatabase(id:currencyCubit.getWalletId(id: cubit.wallets[index].id ));
+                                transactionCubit.deleteTransactionFromDatabase(
+                                    id: transactionCubit
+                                        .transactions[index].id);
+                                // transactionCubit.getmixesFromDatabase();
+                              },
+                            ),
+                            // subtitle:BlocConsumer<WalletCubit,WalletStates>(
+                            //     listener: (BuildContext context,WalletStates state){},
+                            //     builder: (BuildContext context, WalletStates state){
+                            //       return Text(walletCubit.getCurrencyOfWallet(walletId: cubit.wallets[index].id));
+                            //     }
+                            // ) ,
+                            onTap: () => Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => UpdateTransaction(
+                                        transactionId: transactionCubit
+                                            .transactions[index].id))),
                           ),
-                          titleExchange:
-                              '${exchangeCubit.exchanges[index].name}',
-                          datetime:
-                              '${transactionCubit.transactions[index].transactionDate}',
-                          // iconMoneyType:
-                          //     Image.asset('${walletCubit.wallets[index].icon}'),
-                          walletType: '${walletCubit.wallets[index].name}',
-                          contact: '${contactCubit.contacts[index].name}',
-                          note:
-                              '${transactionCubit.transactions[index].description}',
-                          totaleMoney:
-                              '${transactionCubit.transactions[index].total}',
-                          attachments: 'attachments',
-                          payedMoney:
-                              '${transactionCubit.transactions[index].paid}',
-                          restMoney:
-                              '${transactionCubit.transactions[index].rest}');
-
-                      // return Card(
-                      //     child: Column(
-                      //       children: [
-                      //         ListTile(
-                      //           contentPadding: EdgeInsets.all(8.0),
-                      //           title: Text(transactionCubit.transactions[index].total),
-
-                      //           leading: IconButton(
-                      //             icon: Icon(Icons.delete),
-                      //             onPressed: () {
-                      //               // walletCubit.deleteWalletFromDatabase(id:currencyCubit.getWalletId(id: cubit.wallets[index].id ));
-                      //               transactionCubit.deleteTransactionFromDatabase(id: transactionCubit.transactions[index].id);
-                      //               // transactionCubit.getmixesFromDatabase();
-
-                      //             },
-
-                      //           ),
-                      //           // subtitle:BlocConsumer<WalletCubit,WalletStates>(
-                      //           //     listener: (BuildContext context,WalletStates state){},
-                      //           //     builder: (BuildContext context, WalletStates state){
-                      //           //       return Text(walletCubit.getCurrencyOfWallet(walletId: cubit.wallets[index].id));
-                      //           //     }
-                      //           // ) ,
-                      //           onTap: () => Navigator.pushReplacement(context,
-                      //               MaterialPageRoute(builder: (context) => UpdateTransaction(transactionId:transactionCubit.transactions[index].id ))),
-                      //         ),
-                      //         Text('paid is : ${transactionCubit.transactions[index].paid}'),
-                      //         Text('rest is : ${transactionCubit.transactions[index].rest}'),
-                      //         Text('des is : ${transactionCubit.transactions[index].description}'),
-                      //         Text('wallet id is : ${transactionCubit.transactions[index].walletId}'),
-                      //         Text('contact id is : ${transactionCubit.transactions[index].contactId}'),
-                      //         Text('category id is : ${transactionCubit.transactions[index].exchangeId}'),
-                      //         Text('date is : ${transactionCubit.transactions[index].transactionDate}'),
-                      //         Text('income is : ${transactionCubit.transactions[index].isIncome}'),
-                      //       ],
-                      //     ));
+                          Text(
+                              'paid is : ${transactionCubit.transactions[index].paid}'),
+                          Text(
+                              'rest is : ${transactionCubit.transactions[index].rest}'),
+                          Text(
+                              'des is : ${transactionCubit.transactions[index].description}'),
+                          Text(
+                              'wallet id is : ${transactionCubit.transactions[index].walletId}'),
+                          Text(
+                              'contact id is : ${transactionCubit.transactions[index].contactId}'),
+                          Text(
+                              'category id is : ${transactionCubit.transactions[index].exchangeId}'),
+                          Text(
+                              'date is : ${transactionCubit.transactions[index].transactionDate}'),
+                          Text(
+                              'income is : ${transactionCubit.transactions[index].isIncome}'),
+                        ],
+                      ));
                     },
                   );
+                  ;
                 },
               ),
               // Text(basselCubit.bassels[index].name)
@@ -151,7 +143,13 @@ class TransactionHome extends StatelessWidget {
                 icon: Icon(Icons.add),
                 onPressed: () => Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => AddTransaction())),
-              ));
+              )
+              // FloatingActionButton(
+              //   child: Icon(Icons.add),
+              //   onPressed: () => Navigator.pushReplacement(context,
+              //       MaterialPageRoute(builder: (context) => AddTransaction())),
+              // ),
+              );
         },
       ),
     );

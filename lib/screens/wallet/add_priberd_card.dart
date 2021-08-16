@@ -63,7 +63,7 @@ class AddPrepaidCard extends StatelessWidget {
                           color: Colors.grey[100],
                           image: DecorationImage(
                             // alignment: Alignment.center,
-                            scale: 0.3,
+                            scale: 12,
                             image: AssetImage(image),
                             // fit: BoxFit.cover,
                           ),
