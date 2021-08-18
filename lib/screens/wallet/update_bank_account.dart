@@ -1,53 +1,45 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:test_database_floor/models/currency.dart';
-import 'package:test_database_floor/screens/currency/currency_home.dart';
+
 import 'package:test_database_floor/screens/wallet/wallet_home.dart';
 import 'package:test_database_floor/services/currency_cubit/cubit.dart';
 import 'package:test_database_floor/services/currency_cubit/states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:test_database_floor/widget/custom_widgets.dart';
+
 import '../../services/wallet_cubit/states.dart';
 import '../../services/wallet_cubit/cubit.dart';
-import 'wallets_list.dart';
 
-class AddCashWallet extends StatelessWidget {
+class UpdateBankAccount extends StatelessWidget {
+  final walletId;
+  final String walletName;
+  final walletCurrencyId;
+  final walletbalance;
   TextEditingController nameController = TextEditingController();
   TextEditingController balanceController = TextEditingController();
   TextEditingController currencyController = TextEditingController();
   int dropdownValue = 1;
 
   int isID;
-  String image = 'assets/wallet/dollar.png';
+  String image = 'assets/wallet/account.png';
 
-  AddCashWallet(
-      {this.walletId,
+  UpdateBankAccount(
+      {Key key,
+      this.walletId,
       this.walletName,
       this.walletCurrencyId,
       this.walletbalance,
-      this.currnceyName});
-  final walletId;
-  final String walletName;
-  final walletCurrencyId;
-  final walletbalance;
-  final String currnceyName;
+      this.image})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Add Cash Wallet'),
-        centerTitle: true,
-        backgroundColor: Colors.amber[400],
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => WalletsList()));
-          },
-        ),
+      appBar: customAppBar(
+        icon: Icon(Icons.wallet_giftcard),
+        title: Text('Add Wallet'),
       ),
       body: MultiBlocProvider(
         providers: [
@@ -60,7 +52,7 @@ class AddCashWallet extends StatelessWidget {
         ],
         child: BlocConsumer<WalletCubit, WalletStates>(
           listener: (context, state) {
-            if (state is InsertWalletsToDatabaseState) {
+            if (state is UpdateWalletsToDatabaseState) {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => WalletHome()));
             }
@@ -76,13 +68,16 @@ class AddCashWallet extends StatelessWidget {
                       height: 30,
                     ),
                     Container(
-                      height: 150,
-                      width: 150,
+                      width: 150.0,
+                      height: 150.0,
                       decoration: BoxDecoration(
                         color: Colors.grey[100],
                         image: DecorationImage(
-                          scale: 7,
+                          alignment: Alignment.center,
+                          scale: 6,
+
                           image: AssetImage(image),
+                          // fit: BoxFit.cover,
                         ),
                         borderRadius: BorderRadius.all(Radius.circular(100.0)),
                         // border: Border.all(
@@ -94,26 +89,29 @@ class AddCashWallet extends StatelessWidget {
                     SizedBox(
                       height: 30,
                     ),
-                    Text(
-                      'Cash',
-                      style: TextStyle(
-                          color: Colors.grey[500],
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
+                    Container(
+                      child: Text(
+                        'Bank Account',
+                        style: TextStyle(
+                            color: Colors.grey[500],
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18),
+                      ),
                     ),
                     SizedBox(
                       height: 30,
                     ),
                     customFormField(
-                        label: 'Wallet Name',
-                        controller: nameController,
+                        label: 'Wallet\n name',
+                        controller: nameController =
+                            TextEditingController(text: '$walletName'),
                         type: TextInputType.text,
                         isClickable: true,
                         onChange: (String value) {},
                         onSubmit: (String value) {},
                         onTap: () {}),
                     SizedBox(
-                      height: 25,
+                      height: 30,
                     ),
                     Row(
                       children: [
@@ -121,7 +119,8 @@ class AddCashWallet extends StatelessWidget {
                           flex: 3,
                           child: customFormField(
                               label: 'balance ',
-                              controller: balanceController,
+                              controller: balanceController =
+                                  TextEditingController(text: '$walletbalance'),
                               // prefix: Icons.account_balance,
                               type: TextInputType.number),
                         ),
@@ -133,27 +132,13 @@ class AddCashWallet extends StatelessWidget {
                             // ignore: unrelated_type_equality_checks
                             return Expanded(
                               flex: 1,
-                              // child: Container(
-                              //   color: Colors.grey[300],
-                              //   height: 57,
-                              //   child: InkWell(
-                              //       onTap: () => Navigator.of(context)
-                              //               .push(MaterialPageRoute(
-                              //             builder: (_) => CurrencyHome(),
-                              //           )),
-                              //       child: Center(
-                              //           child: Text(
-                              //         currnceyName,
-                              //         style: TextStyle(
-                              //             fontSize: 20,
-                              //             color: Colors.grey[700]),
-                              //       ))),
-                              // ),
                               child: TextField(
                                 // onSubmitted: (value) => _childInfo(context),
                                 textAlign: TextAlign.right,
                                 readOnly: true,
-                                controller: currencyController,
+                                controller: currencyController =
+                                    TextEditingController(
+                                        text: '$walletCurrencyId'),
                                 style: TextStyle(
                                   fontSize: 18.0,
                                   color: Colors.amberAccent,
@@ -207,9 +192,11 @@ class AddCashWallet extends StatelessWidget {
                       ],
                     ),
                     SizedBox(
-                      height: 40,
+                      height: 50,
                     ),
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Row(
                           children: [
@@ -249,31 +236,29 @@ class AddCashWallet extends StatelessWidget {
                             //   }
                             //  ):Container(),
                             SizedBox(
-                              height: 35,
+                              height: 50,
                             ),
-                            Container(
-                              child: customRaisedButton(
-                                  text: 'save',
-                                  onPressed: () {
-                                    WalletCubit.get(context).insertToDatabase(
-                                        isId: walletId,
-                                        icon: image,
-                                        walletName: nameController.text,
-                                        walletBalance: balanceController.text,
-                                        currencyId: CurrencyCubit.get(context)
-                                            .getCurrencyId(
-                                                currencyName:
-                                                    currencyController.text));
-                                    // CurrencyCubit.get(context).insertToDatabase(
-                                    //     isId: isID,
-                                    //     basselName: currencyController.text,
-                                    //     ownerId:WalletCubit.get(context).lastId != null?  WalletCubit.get(context).lastId + 1 : 1);
-                                  }),
-                            ),
+                            customRaisedButton(
+                                text: 'Edit',
+                                onPressed: () {
+                                  WalletCubit.get(context).updateWalletDatabase(
+                                      isId: walletId,
+                                      icon: image,
+                                      walletName: nameController.text,
+                                      walletBalance: balanceController.text,
+                                      currencyId: CurrencyCubit.get(context)
+                                          .getCurrencyId(
+                                              currencyName:
+                                                  currencyController.text));
+                                  // CurrencyCubit.get(context).insertToDatabase(
+                                  //     isId: isID,
+                                  //     basselName: currencyController.text,
+                                  //     ownerId:WalletCubit.get(context).lastId != null?  WalletCubit.get(context).lastId + 1 : 1);
+                                }),
                           ],
                         );
                       },
-                    ),
+                    )
                   ]),
             );
           },

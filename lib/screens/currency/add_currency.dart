@@ -9,8 +9,6 @@ import 'package:test_database_floor/widget/custom_appBar.dart';
 import 'package:test_database_floor/widget/custom_textFormField.dart';
 
 class AddCurrency extends StatelessWidget {
-
-
   TextEditingController nameController = TextEditingController();
 
   int isID;
@@ -18,35 +16,27 @@ class AddCurrency extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-          Icon(Icons.wallet_giftcard),
-          'Add Currency'),
-      body:MultiBlocProvider(
-        providers:[
+      appBar: CustomAppBar(Icon(Icons.wallet_giftcard), 'Add Currency'),
+      body: MultiBlocProvider(
+        providers: [
           BlocProvider(
             create: (BuildContext context) => CurrencyCubit()..createDatabase(),
           ),
         ],
-
-
-        child: BlocConsumer<CurrencyCubit,CurrencyStates>(
-          listener: (context,CurrencyStates state){
-            if(state is InsertCurrenciesToDatabaseState){
+        child: BlocConsumer<CurrencyCubit, CurrencyStates>(
+          listener: (context, CurrencyStates state) {
+            if (state is InsertCurrenciesToDatabaseState) {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => CurrencyHome()));
             }
           },
-          builder: (context,state){
+          builder: (context, state) {
             return ListView(children: [
-
-              SizedBox(height: 20,),
-              CustomTextFormField(
-                  'Name Currency',
-                  nameController,
-                  Icon(Icons.money),
-                      (){},
-                      (){},
-                  TextInputType.text),
+              SizedBox(
+                height: 20,
+              ),
+              CustomTextFormField('Name Currency', nameController,
+                  Icon(Icons.money), () {}, () {}, TextInputType.text),
               // TextFormField(
               //   controller: nameController,
               //   decoration: const InputDecoration(
@@ -64,10 +54,7 @@ class AddCurrency extends StatelessWidget {
                     CurrencyCubit.get(context).insertToDatabase(
                       isId: isID,
                       basselName: nameController.text,
-
                     );
-
-
                   })
             ]);
           },
@@ -76,4 +63,3 @@ class AddCurrency extends StatelessWidget {
     );
   }
 }
-
