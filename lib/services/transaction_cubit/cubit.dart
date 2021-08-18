@@ -61,13 +61,18 @@ class TransactionCubit extends Cubit<TransactionStates> {
 
   void getTransactionByContactFromDatabase({
     @required int contactId,
+    String name,
     @required int walletId,
     @required int categoryId,
     int currencyID,
   }) {
     this
         .dao
-        .transactionByContact(contactId, walletId, categoryId)
+        .transactionByContact(
+          contactId,
+          walletId,
+          categoryId,
+        )
         .then((value) {
       transactionByContact = value;
       emit(GetTransactionsFromDatabaseState());
