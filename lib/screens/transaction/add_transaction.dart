@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:test_database_floor/models/contact.dart';
 import 'package:test_database_floor/models/exchange_category.dart';
 import 'package:test_database_floor/models/wallet.dart';
@@ -29,6 +30,36 @@ class AddTransaction extends StatelessWidget {
   TextEditingController isIncomeController = TextEditingController();
 
   int isID;
+  String date;
+  String time;
+
+  TimeOfDay timeOfDay = TimeOfDay.now();
+  selectedTodotime(BuildContext context) async {
+    var pickTime = await showTimePicker(
+      context: context,
+      initialTime: timeOfDay,
+    );
+    if (pickTime != null) {
+      timeOfDay = pickTime;
+      time = TimeOfDay(hour: pickTime.hour, minute: pickTime.minute)
+          .format(context);
+    }
+  }
+
+  DateTime dateTime = DateTime.now();
+  selectedTodoDate(BuildContext context) async {
+    var pickedDate = await showDatePicker(
+      context: context,
+      initialDate: dateTime,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+
+    if (pickedDate != null) {
+      dateTime = pickedDate;
+      date = DateFormat('yyyy-MM-dd').format(pickedDate);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +121,13 @@ class AddTransaction extends StatelessWidget {
                     controller: transactionDateController,
                     type: TextInputType.number),
                 SizedBox(
+                  height: 25,
+                ),
+                customFormField(
+                    label: 'IScome',
+                    controller: isIncomeController,
+                    type: TextInputType.number),
+                SizedBox(
                   height: 50,
                 ),
                 CustomTextFormField('description', descriptionController,
@@ -97,10 +135,82 @@ class AddTransaction extends StatelessWidget {
                 SizedBox(
                   height: 50,
                 ),
-                CustomTextFormField('isIncome', isIncomeController,
-                    Icon(Icons.person), () {}, () {}, TextInputType.number),
                 SizedBox(
                   height: 50,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      height: 60,
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      decoration: BoxDecoration(
+                        border:
+                            Border.all(color: Colors.amber[400], width: 1.0),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          IconButton(
+                              icon: Image.asset(
+                                "assets/wallet/clock.png",
+                              ),
+                              onPressed: () {
+                                selectedTodotime(context);
+                              }),
+                          Center(
+                            child: time == null
+                                ? Text(TimeOfDay(
+                                        minute: timeOfDay.minute,
+                                        hour: timeOfDay.hour)
+                                    .format(context))
+                                : Text(
+                                    '$time',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 17,
+                                    ),
+                                  ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      height: 60,
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      decoration: BoxDecoration(
+                        border:
+                            Border.all(color: Colors.amber[400], width: 1.0),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          IconButton(
+                              icon: Image.asset("assets/wallet/calendar.png"),
+                              onPressed: () {
+                                selectedTodoDate(context);
+                              }),
+                          Center(
+                            child: date == null
+                                ? Text(
+                                    DateFormat('yyyy-MM-dd').format(dateTime))
+                                : Text(
+                                    '$date',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 17,
+                                    ),
+                                  ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 25,
                 ),
                 BlocConsumer<ExchangeCubit, ExchangeStates>(
                   listener: (context, ExchangeStates state) {},
@@ -215,9 +325,6 @@ class AddTransaction extends StatelessWidget {
                         hoverColor: Colors.amberAccent,
                         focusColor: Colors.amberAccent,
                       ),
-//                        onSubmitted: (value) =>  Navigator.push(
-//                            context,
-//                            MaterialPageRoute(builder: (context) => ChildInfo(children[0]))) ,
                     );
                   },
                 ),
